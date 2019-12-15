@@ -90,11 +90,11 @@ function orbit
     wait 5.
     print "Boosting to orbit" at (0,1).
 
-    until ship:periapsis > 100000
+    until ship:periapsis > 90000
     {
 		if ETA:apoapsis <= 10
         {
-            until ship:periapsis >= 100000
+            until ship:periapsis >= 90000
             {
                 stageing().
 
@@ -113,38 +113,37 @@ function orbit
             }
         }
     }
-    if ship:periapsis > 75000
+    if ship:periapsis > 80000
     {
         print "Elliptical orbit reached, circularizeing" at (0,1).
-    }
-    if ship:periapsis > 100000
-    {
-		print "Simi-circularised orbit reached Finalizing." at (0,1).
-        balance().
+        circularise().
     }
 }
-function balance
+function circularise
 {
-    if ship:apoapsis > 120000
+    set targAlt to ship:apoapsis-6000.
+
+    if ETA:apoapsis < 10
     {
-        until ship:apoapsis < 110000
+        if ship:periapsis < targAlt.
         {
-            if ETA:periapsis <= 5
-     	 	{  
-           		until ship:apoapsis <= 110000
-            	{
-               		stageing().
-                
-                	if ETA:periapsis <= 1
-                	{
-                    	lock steering to up + R(0,-80,0).
-               		}
-                	if ETA:periapsis >= 5
-                	{
-                   		lock steering to up + R(0,-90,0).
-                	}
-            	}
-        	}
+            until shop:periapsis > targAlt
+            {
+                stageing().
+
+                if ETA:apoapsis <= 3 
+                {
+                    lock steering to up + R(0,-65,0).
+                }
+                if ETA:apoapsis >= 60
+                {
+                    lock steering to up + R(0,-65,0).
+                }
+                if ETA:apoapsis >= 10
+                {
+                    lock steering to up + R(0,-90,0).
+                }
+            }
         }
     }
 }

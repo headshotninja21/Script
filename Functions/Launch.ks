@@ -30,7 +30,7 @@ function launch()
         }
         if ship:altitude < 21001
         {
-            set p to (5*sqrt(x-30)+21)
+            set p to (5*sqrt(x-30)+21).
         }
     } 
 }

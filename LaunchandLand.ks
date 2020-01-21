@@ -160,7 +160,7 @@ function Landing
             set cluster[3]:thrustlimit to 0.
             set cluster[4]:thrustlimit to 100.  
 
-            lock target to "OCISLY"
+            lock target to "OCISLY".
 
             if (ADDONS:TR:TIMETILLIMPACT*1.7) <= -HoverslamTime
             {

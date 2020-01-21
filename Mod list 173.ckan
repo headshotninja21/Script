@@ -1,0 +1,293 @@
+{
+	"kind": "metapackage",
+	"abstract": "A list of modules installed on the auto KSP instance",
+	"name": "installed-auto",
+	"license": "unknown",
+	"version": "2020.01.21.04.05.08",
+	"identifier": "installed-auto",
+	"spec_version": "v1.6",
+	"recommends": [
+		{
+			"name": "CustomBarnKit"
+		},
+		{
+			"name": "MechJebForAll"
+		},
+		{
+			"name": "kOS"
+		},
+		{
+			"name": "NearFutureElectrical-Core"
+		},
+		{
+			"name": "HangerExtenderExtended"
+		},
+		{
+			"name": "ProceduralFairings"
+		},
+		{
+			"name": "ProceduralParts"
+		},
+		{
+			"name": "RealChute"
+		},
+		{
+			"name": "ExtraPlanetaryLaunchpads"
+		},
+		{
+			"name": "ReentryParticleEffect"
+		},
+		{
+			"name": "ReStock"
+		},
+		{
+			"name": "ReStockPlus"
+		},
+		{
+			"name": "Scatterer"
+		},
+		{
+			"name": "Scatterer-config"
+		},
+		{
+			"name": "Strategia"
+		},
+		{
+			"name": "surfacelights"
+		},
+		{
+			"name": "BluedogDB"
+		},
+		{
+			"name": "ModuleManager"
+		},
+		{
+			"name": "CommunityResourcePack"
+		},
+		{
+			"name": "UniversalStorage2"
+		},
+		{
+			"name": "TweakScale"
+		},
+		{
+			"name": "FMRSContinued"
+		},
+		{
+			"name": "RealPlume"
+		},
+		{
+			"name": "KerbalEngineerRedux"
+		},
+		{
+			"name": "CommunityTechTree"
+		},
+		{
+			"name": "EngineLighting"
+		},
+		{
+			"name": "ContractConfigurator-KerbinSpaceStation"
+		},
+		{
+			"name": "ClickThroughBlocker"
+		},
+		{
+			"name": "RemoteTech"
+		},
+		{
+			"name": "NearFutureElectrical"
+		},
+		{
+			"name": "MainSailorTextures-Complete"
+		},
+		{
+			"name": "MainSailorTextures-Essentials"
+		},
+		{
+			"name": "FASA"
+		},
+		{
+			"name": "ContractConfigurator-Tourism"
+		},
+		{
+			"name": "DynamicBatteryStorage"
+		},
+		{
+			"name": "NearFutureSolar"
+		},
+		{
+			"name": "ToolbarController"
+		},
+		{
+			"name": "USI-LS"
+		},
+		{
+			"name": "B9PartSwitch"
+		},
+		{
+			"name": "FirespitterCore"
+		},
+		{
+			"name": "TextureReplacer"
+		},
+		{
+			"name": "Scatterer-sunflare"
+		},
+		{
+			"name": "FerramAerospaceResearchContinued"
+		},
+		{
+			"name": "ContractConfigurator"
+		},
+		{
+			"name": "SpaceXLegs"
+		},
+		{
+			"name": "AnimatedDecouplers"
+		},
+		{
+			"name": "CommunityCategoryKit"
+		},
+		{
+			"name": "USITools"
+		},
+		{
+			"name": "RealHeat"
+		},
+		{
+			"name": "KerbalAlarmClock"
+		},
+		{
+			"name": "BetterBurnTime"
+		},
+		{
+			"name": "CapCom"
+		},
+		{
+			"name": "RecoveryController"
+		},
+		{
+			"name": "KerbalJointReinforcementNext"
+		},
+		{
+			"name": "USI-FTT"
+		},
+		{
+			"name": "ContractRewardModifier"
+		},
+		{
+			"name": "SCANsat"
+		},
+		{
+			"name": "ProgressParser"
+		},
+		{
+			"name": "ContractParser"
+		},
+		{
+			"name": "Trajectories"
+		},
+		{
+			"name": "MechJeb2"
+		},
+		{
+			"name": "USI-Core"
+		},
+		{
+			"name": "TundraExploration"
+		},
+		{
+			"name": "KAS"
+		},
+		{
+			"name": "KIS"
+		},
+		{
+			"name": "EasyVesselSwitch"
+		},
+		{
+			"name": "NearFutureSolar-Core"
+		},
+		{
+			"name": "TriggerAu-Flags"
+		},
+		{
+			"name": "unBlur"
+		},
+		{
+			"name": "USI-ART"
+		},
+		{
+			"name": "UKS"
+		},
+		{
+			"name": "Konstruction"
+		},
+		{
+			"name": "Karbonite"
+		},
+		{
+			"name": "USI-EXP"
+		},
+		{
+			"name": "GroundConstruction"
+		},
+		{
+			"name": "AT-Utils"
+		},
+		{
+			"name": "ConfigurableContainers-Core"
+		},
+		{
+			"name": "GroundConstruction-Core"
+		},
+		{
+			"name": "ConfigurableContainers"
+		},
+		{
+			"name": "KSP-AVC"
+		},
+		{
+			"name": "ContractsWindowPlus"
+		},
+		{
+			"name": "RasterPropMonitor"
+		},
+		{
+			"name": "RasterPropMonitor-Core"
+		},
+		{
+			"name": "NearFutureConstruction"
+		},
+		{
+			"name": "KEI"
+		},
+		{
+			"name": "SmokeScreen"
+		},
+		{
+			"name": "Kethane"
+		},
+		{
+			"name": "RetractableLiftingSurface"
+		},
+		{
+			"name": "xScienceContinued"
+		},
+		{
+			"name": "RealPlume-StockConfigs"
+		},
+		{
+			"name": "ModularFlightIntegrator"
+		},
+		{
+			"name": "DMagicScienceAnimate"
+		},
+		{
+			"name": "HeatControl"
+		},
+		{
+			"name": "RealisticHeatMgmt"
+		}
+	]
+}

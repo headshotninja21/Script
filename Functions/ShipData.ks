@@ -76,14 +76,6 @@ function deltaV
     return DV.
 }
 
-function impulse
-{
-    set orbit to orbitInfo().
-    parameter targetApo.
-    set currentApo to orbitinfo[0].
-    set currentPeri to orbitinfo[1].
-}
-
 function LandingData
 {
     list engines in E.

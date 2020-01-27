@@ -1,4 +1,4 @@
-function launch()
+function launch
 {
     print "Beginning Launch Protocal" at (0,1).
 
@@ -21,7 +21,6 @@ function launch()
     until ship:apoapsis < 100000
     {
         lock throttle to 1.
-        lock steering to up + (0,p,0).
         set x to ship:altitude/1000.
 
         if ship:altitude > 21000
@@ -32,5 +31,7 @@ function launch()
         {
             set p to (5*sqrt(x-30)+21).
         }
+
+        lock steering to up + (0,p,0).
     } 
 }

@@ -9,8 +9,8 @@ function orbitInfo
     set a1 to orbit:semimajoraxis.
     set e to orbit:eccentricity.
     set theta to orbit:trueanomaly.
+    
     set rad to (apo*(1-e^2))/(1*e*cos(theta)).
-
     set orbitTime to (2*constant:pi*sqrt((a1^3)/mu)).
     set orbitV to sqrt(mu*((2/r)-(1/a1))).
     set orbitE to (orbitV^2/2)-(mu/rad).

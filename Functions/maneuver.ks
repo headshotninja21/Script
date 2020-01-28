@@ -38,7 +38,11 @@ function runNode
 	set b to ship:prograde:yaw.
 	set c to ship:prograde:roll.
 	lock steering to R(a,b,c).
-	WAIT UNTIL (ship:facing:pitch >= (round(a) - 5) AND ship:facing:roll >= (round(c) - 5)) AND (ship:facing:pitch <= (round(a) + 5) AND ship:facing:roll round(c) + 5)).
+	
+    WAIT UNTIL (ship:facing:pitch >= (round(a) - 5) 
+    AND ship:facing:roll >= (round(c) - 5)) 
+    AND (ship:facing:pitch <= (round(a) + 5) 
+    AND ship:facing:roll + (round(c) + 5)).
     
     wait ETA:apoapsis < 10.
 
@@ -53,7 +57,11 @@ function runNode
 	set b to ship:prograde:yaw.
 	set c to ship:prograde:roll.
 	lock steering to R(a,b,c).
-	WAIT UNTIL (ship:facing:pitch >= (round(a) - 5) AND ship:facing:roll >= (round(c) - 5)) AND (ship:facing:pitch <= (round(a) + 5) AND ship:facing:roll round(c) + 5)).
+	
+    WAIT UNTIL (ship:facing:pitch >= (round(a) - 5) 
+    AND ship:facing:roll >= (round(c) - 5)) 
+    AND (ship:facing:pitch <= (round(a) + 5) 
+    AND ship:facing:roll (round(c) + 5)).
     
     wait ETA:apoapsis < 10.
 

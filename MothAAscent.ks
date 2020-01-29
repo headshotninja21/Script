@@ -1,4 +1,3 @@
-//First Launch Script
 countdown().
 GuidanceStageB().
 GuidanceStageC().
@@ -8,6 +7,7 @@ if periapsis > 99500
     {
         print "Guidance Complete".
     }
+
 function countdown
     {
         clearscreen.
@@ -42,6 +42,7 @@ function countdown
         print "Lift off".
         GuidanceStageA1().
     }
+
 function GuidanceStageA1
     {
         lock steering to up.
@@ -92,6 +93,7 @@ function GuidanceStageA1
                     }
             } 
     }
+
 function GuidanceStageA2
     {
         lock throttle to 1.
@@ -113,6 +115,7 @@ function GuidanceStageA2
                 print "Time to Apoapsis" + eta:apoapsis at (0,21).
             } 
     }
+
 
 function GuidanceStageB
     {
@@ -142,6 +145,7 @@ function GuidanceStageB
                     }
             }
     }
+
 function GuidanceStageC
     {
         lock throttle to 0.
@@ -170,6 +174,7 @@ function GuidanceStageC
                     }
             }
     }
+
 function GuidanceStageD
     {
         lock throttle to 0.
@@ -198,6 +203,7 @@ function GuidanceStageD
                     }
             }
     }
+
 function GuidanceStageE
     {
         lock throttle to 0.

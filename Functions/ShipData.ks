@@ -1,37 +1,37 @@
 function orbitInfo
 {
-    set output to list().
-    set mu to body:mu.
-    set alt to ship:altitude.
+    set output to list().//list for all outgoing vars (KOS can't return more than one var)
+    set mu to body:mu.//to make the math look nice
+    set alt to ship:altitude.//to make the math look nice
 
-    set apo to ship:apoapsis.
-    set peri to ship:periapsis.
-    set a1 to orbit:semimajoraxis.
-    set e to orbit:eccentricity.
-    set theta to orbit:trueanomaly.
+    set apo to ship:apoapsis.//to make the math look nice
+    set peri to ship:periapsis.//to make the math look nice
+    set a1 to orbit:semimajoraxis.//to make the math look nice
+    set e to orbit:eccentricity.//to make the math look nice
+    set theta to orbit:trueanomaly.//to make the math look nice
     
-    set rad to (apo*(1-e^2))/(1*e*cos(theta)).
-    set orbitTime to (2*constant:pi*sqrt((a1^3)/mu)).
-    set orbitV to sqrt(mu*((2/r)-(1/a1))).
-    set orbitE to (orbitV^2/2)-(mu/rad).
+    set rad to (apo*(1-e^2))/(1*e*cos(theta)).//radius of the orbit
+    set orbitTime to (2*constant:pi*sqrt((a1^3)/mu)).//orbital period found wuth math
+    set orbitV to sqrt(mu*((2/r)-(1/a1))).// orbital velocity
+    set orbitE to (orbitV^2/2)-(mu/rad).//orbital energy 
 
-    output:add(apo,peri,orbit:semimajoraxis,orbitTime,orbitV,orbitE).
+    output:add(apo,peri,orbit:semimajoraxis,orbitTime,orbitV,orbitE).//adds all out going vars to output list
     return output.
 }
 
 function deltaV
 {
-    list engines in E.
-    set S to stage:resources.
-    set TS to ship:resources.
+    list engines in E.//list of all engines
+    set S to stage:resources.//list of all resources in active stage
+    set TS to ship:resources.//list of all resoutces in whole vessel
 
-    set ecount to 0.
-    set tisp to 0.
-    set resMass to 0.
-    set stageDry to 0.
-    set shipMass to ship:mass*1000.
+    set ecount to 0.//engine count
+    set tisp to 0.//total ISP
+    set resMass to 0.//resource mass
+    set stageDry to 0.//stage dry mass
+    set shipMass to ship:mass*1000.//ship:mass is given in metric tons, change to kg 
     
-    for x in E 
+    for x in E //ISP Avg check
     {
         if x:ignition
         {
@@ -40,7 +40,7 @@ function deltaV
         }
     }
     
-    for y in S
+    for y in S //Resource mass check if not on last stage
     {
         if y:name = "liquidfuel"
         {
@@ -52,7 +52,7 @@ function deltaV
         }
     }
     
-    if resMass = 0
+    if resMass = 0 //Resource mass check if on last stage
     {
         for z in TS
         {
@@ -67,11 +67,11 @@ function deltaV
         }
     }
 
-    set stageDry to shipMass - resMass.
+    set stageDry to shipMass - resMass.//Dry mass for the empty stage and a full set of stages above it
     set avgisp to tisp / ecount.
 
-    set Ve to avgisp * constant:g0.
-    set DV to Ve * (ln(shipMass)-ln(stageDry)).
+    set Ve to avgisp * constant:g0.//Exaust Velocity
+    set DV to Ve * (ln(shipMass)-ln(stageDry)).//DeltaV Math
 
     return DV.
 }

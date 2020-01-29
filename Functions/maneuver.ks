@@ -7,7 +7,7 @@ function impulseDV
     parameter targetApo.
     parameter cAlt.
     
-    If not (defined r1)
+    if not (defined r1)
     {
     set r1 to cAlt + body:radius.
     }

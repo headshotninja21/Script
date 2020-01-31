@@ -6,44 +6,46 @@ runpath("0:/Functions/maneuver.ks").
 
 set next to false.
 
-function Confirm
-{
-    xgui:hide().
-    set next to true.
-}
-
 function apoapsisCheck
 {
     set maxApo to 500.
     set next to false.
 
-    local Xgui is GUI(0).
-    set apoLabel to Xgui:addlabel("What is the Apoapsis you wish to have.").
-    set apoSlider to Xgui:addSlider(100,75,maxApo).
-    set apoCon to Xgui:addButton("Confirm Apoapsis").
+    global gui is GUI(0,0).
+    set apoLabel to gui:addlabel("What is the Apoapsis you wish to have.").
+    set TextField to gui:addTextField("").
+    set apoCon to gui:addButton("Confirm Apoapsis").
 
     set apoLabel:style:align to "center".
     set apoLabel:style:hStretch to true.
+    set apoLabel:style:wordwrap to false.
 
-    set apoSlider:style:align to "center".
-    aet apoSlider:style:hStretch to true.
+    set TextField:style:align to "center".
+    set TextField:style:hStretch to true.
+    set TextField:toolTip to ("Enter your desired apoapsis in a range of 75km to " + maxApo + "km").
+    set TextField:style:wordwrap to false.
 
     set apoCon:style:align to "center".
     set apoCon:style:hStretch to true.
     set apoCon:onclick to Confirm@.
+    set apoCon:style:wordwrap to false.
 
-    Xgui:show().
+    gui:show().
 
     until false
     {
-        if next is true
+        if next = true
         {
-            return apoSlider:value.
+            return TextField:text.
         }
     }
 }
 
-function readyCheck
+function Confirm
 {
-
+    gui:hide().
+    set next to true.
 }
+
+set out to apoapsisCheck().
+print out.

@@ -5,13 +5,16 @@ runpath("0:/Functions/Launch.ks").
 runpath("0:/Functions/maneuver.ks").
 
 set next to false.
+global gui is GUI(0,0).
 
 function apoapsisCheck
 {
     set maxApo to 500.
     set next to false.
 
+    unset gui.
     global gui is GUI(0,0).
+    
     set apoLabel to gui:addlabel("What is the Apoapsis you wish to have.").
     set TextField to gui:addTextField("").
     set apoCon to gui:addButton("Confirm Apoapsis").
@@ -24,6 +27,7 @@ function apoapsisCheck
     set TextField:style:hStretch to true.
     set TextField:toolTip to ("Enter your desired apoapsis in a range of 75km to " + maxApo + "km").
     set TextField:style:wordwrap to false.
+    set TextField:onConfirm to Confirm@.
 
     set apoCon:style:align to "center".
     set apoCon:style:hStretch to true.
@@ -34,6 +38,61 @@ function apoapsisCheck
 
     until false
     {
+        if next = true
+        {
+            if TextField:text < 75
+            {
+                apoapsisCheck().
+            }
+            else if TextField:text > maxApo
+            {
+                apoapsisCheck().
+            }
+            return TextField:text.
+        }
+    }
+}
+
+function inclinationCheck
+{
+    set maxInclination to 90.
+    set minInclination to -90.
+    set next to false.
+
+    unset gui.
+    global gui to GUI(0,0).
+    
+    set inclabel to gui:addlabel("what is the inclination you wish to have.").
+    set incTextField to gui:addTextField("").
+    set incCon to gui:addButton("Confirm Inclination").
+
+    set incLabel:style:align to "center".
+    set incLabel:style:hStretch to true.
+    set incLabel:style:wordwrap to false.
+    
+    set TextField:style:align to "center".
+    set TextField:style:hStretch to true.
+    set TextField:toolTip to ("Enter your desired Inclination in a range of: " + maxInclination + " to " + minInclination).
+    set TextField:style:wordwrap to false.
+    set TextField:onConfirm to Confirm@.
+
+    set apoCon:style:align to "center".
+    set apoCon:style:hStretch to true.
+    set apoCon:onclick to Confirm@.
+    set apoCon:style:wordwrap to false.
+    
+    gui:show().
+
+    until false
+    {
+        if TextField:text < minInclination
+        {
+            apoapsisCheck().
+        }
+        else if TextField:text > maxInclination
+        {
+            apoapsisCheck().
+        }
         if next = true
         {
             return TextField:text.
@@ -47,5 +106,23 @@ function Confirm
     set next to true.
 }
 
-set out to apoapsisCheck().
-print out.
+function launchMode
+{
+
+}
+
+function readyCheck
+{
+    unset gui.
+    global gui to GUI(0,0).
+    set next to false.
+
+    set inclabel to gui:addlabel("what is the inclination you wish to have.").
+    set apoPick to gui:addButton("Change Apoapsis").
+    set Ipick to gui:addButton("Change inclination").
+    set launch to gui:addButton("launch").
+
+    set apoPick:onclick to apoapsisCheck@.
+    set Ipick:onclick to inclinationCheck@.
+    set launch:onclick to launchMode@.
+}

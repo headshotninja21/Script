@@ -4,7 +4,7 @@ runpath("0:/Functions/stageing.ks").
 function launch
 {
     parameter targApo.//target apoapsis
-
+    parameter targI.//target inclination
     print "Beginning Launch Protocal" at (0,1).
 
     set i to 10.//countdown
@@ -43,17 +43,18 @@ function launch
             set p to (5*sqrt(x-30)+21).//math function for curve for high atmos
         }
 
-        lock steering to up + R(0,p,0).//sets the rocket pitch to the output of that curves 
+        lock steering to up + R(0,p,targI).//sets the rocket pitch to the output of that curves 
     }
     //End Auto-Ascent
 
-    circularize(targApo). 
+    circularize(targApo,targI). 
 }
 
 
 function circularize
 {
     parameter targApo.
+    parameter targI.
 
     set runmode to 1.
     set eta to ETA:apoapsis.
@@ -69,7 +70,7 @@ function circularize
     until runmode = 2
     {
         set p to apid(ETA,targETA,1,1,1).//pid loop for pitch control
-        lock steering to prograde + R(0,p,0).
+        lock steering to prograde + R(0,p,targI).
 
         if ETA:apoapsis > 20
         {

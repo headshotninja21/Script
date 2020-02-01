@@ -4,18 +4,18 @@ function orbitInfo
     set mu to body:mu.//to make the math look nice
     set alt to ship:altitude.//to make the math look nice
 
-    set apo to ship:apoapsis.//to make the math look nice
+    set Capo to ship:apoapsis.//to make the math look nice
     set peri to ship:periapsis.//to make the math look nice
     set a1 to orbit:semimajoraxis.//to make the math look nice
     set e to orbit:eccentricity.//to make the math look nice
     set theta to orbit:trueanomaly.//to make the math look nice
     
-    set rad to (apo*(1-e^2))/(1*e*cos(theta)).//radius of the orbit
+    set rad to (Capo*(1-e^2))/(1*e*cos(theta)).//radius of the orbit
     set orbitTime to (2*constant:pi*sqrt((a1^3)/mu)).//orbital period found wuth math
     set orbitV to sqrt(mu*((2/r)-(1/a1))).// orbital velocity
     set orbitE to (orbitV^2/2)-(mu/rad).//orbital energy 
 
-    output:add(apo,peri,orbit:semimajoraxis,orbitTime,orbitV,orbitE).//adds all out going vars to output list
+    output:add(Capo,peri,orbit:semimajoraxis,orbitTime,orbitV,orbitE).//adds all out going vars to output list
     return output.
 }
 

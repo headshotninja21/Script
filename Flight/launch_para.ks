@@ -6,6 +6,8 @@ runpath("0:/Functions/maneuver.ks").
 
 set next to false.
 global gui is GUI(0,0).
+global Inc is 0.
+global apo is 100.
 
 function apoapsisCheck
 {
@@ -48,7 +50,11 @@ function apoapsisCheck
             {
                 apoapsisCheck().
             }
-            return TextField:text.
+            else
+            {
+                set apo to TextField:text.
+                readyCheck().
+            }
         }
     }
 }
@@ -85,17 +91,21 @@ function inclinationCheck
 
     until false
     {
-        if TextField:text < minInclination
-        {
-            apoapsisCheck().
-        }
-        else if TextField:text > maxInclination
-        {
-            apoapsisCheck().
-        }
         if next = true
         {
-            return TextField:text.
+            if TextField:text < minInclination
+            {
+                apoapsisCheck().
+            }
+            else if TextField:text > maxInclination
+            {
+                apoapsisCheck().
+            }
+            else
+            {
+                set Inc to TextField:text.
+                readyCheck().
+            }
         }
     }
 }
@@ -106,13 +116,8 @@ function Confirm
     set next to true.
 }
 
-function launchMode
-{
-
-}
-
 function readyCheck
-{
+{    
     unset gui.
     global gui to GUI(0,0).
     set next to false.
@@ -125,4 +130,19 @@ function readyCheck
     set apoPick:onclick to apoapsisCheck@.
     set Ipick:onclick to inclinationCheck@.
     set launch:onclick to launchMode@.
+
+    gui:show().
+    until false
+    {
+        print apo at (0,1).
+        print Inc at (0,2).
+    }
 }
+
+function launchMode
+{
+    gui:hide().
+    set apo to apo * 100.
+    launch(apo,Inc).
+}
+readyCheck().

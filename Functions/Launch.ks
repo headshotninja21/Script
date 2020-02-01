@@ -6,6 +6,7 @@ function launch
     parameter targApo.//target apoapsis
     parameter targI.//target inclination
     print "Beginning Launch Protocal" at (0,1).
+    lock steering to up.
 
     set i to 10.//countdown
     set a to 2.//print location
@@ -16,14 +17,19 @@ function launch
         print "T - " + i at (0,a).
         set a to a + 1.
         set i to i - 1.
-        
-        if i >= 4
+        if i = 3 
         {
-            lock throttle to throttle + .25.
+            lock throttle to .25.
+            stage.
+        }
+        if i = 1
+        {
+            lock throttle to 1.
             stage.
             
             print "Start up" at (0,1). 
         }
+        wait 1.
     }
     //End Countdown
 
@@ -43,7 +49,7 @@ function launch
             set p to (5*sqrt(x-30)+21).//math function for curve for high atmos
         }
 
-        lock steering to up + R(0,p,targI).//sets the rocket pitch to the output of that curves 
+        lock steering to up + R(0,p,targI).//sets the rocket pitch to the output of the curves 
     }
     //End Auto-Ascent
 

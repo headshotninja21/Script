@@ -75,7 +75,7 @@ function circularize
     //Start Auto-Circularize
     until runmode = 2
     {
-        set p to apid(ETA,targETA,1,1,1).//pid loop for pitch control
+        set p to apid(ETA:apoapsis,targETA,1,1,1).//pid loop for pitch control
         lock steering to prograde + R(0,p,targI).
 
         if ETA:apoapsis > 20

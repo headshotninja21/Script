@@ -142,7 +142,7 @@ function readyCheck
 function launchMode
 {
     gui:hide().
-    set apo to apo * 100.
+    set apo to apo * 1000.
     launch(apo,Inc).
 }
 readyCheck().

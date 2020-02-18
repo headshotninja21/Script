@@ -42,9 +42,9 @@ function land
     until ship:status = "Landed" or until ship:status = "Splashed"
     {
         set impactDist to calcDistance(targ,ImpactLoc).
-        set targAng to geoDir(ImpactLoc,targ)
+        set targY to geoDir(ImpactLoc,targ)
         lock throttle to Apid(ImpactTime,StopTime,1,1,1).
-        lock heading to 
+        lock steering to heading(targY,) 
     }
 
 }

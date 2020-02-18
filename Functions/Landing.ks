@@ -1,3 +1,5 @@
+runpath("0:/old scripts/PIDLoops.ks").
+
 function LandingData
 {
     list engines in E.
@@ -31,4 +33,30 @@ function LandingData
         }
         set StopTime to ship:verticalspeed/magacc.
     }
+}
+
+function land
+{
+    LandingData().
+    set targ to ImpactLoc.
+    until ship:status = "Landed" or until ship:status = "Splashed"
+    {
+        set impactDist to calcDistance(targ,ImpactLoc).
+        set targAng to geoDir(ImpactLoc,targ)
+        lock throttle to Apid(ImpactTime,StopTime,1,1,1).
+        lock heading to 
+    }
+
+}
+function calcDistance  //Approx in meters
+{
+    parameter geo1.
+    parameter geo2.
+    return (geo1:POSITION - geo2:POSITION):MAG.
+}
+function geoDir 
+{
+    parameter geo1.
+    parameter geo2.
+    return ARCTAN2(geo1:LNG - geo2:LNG, geo1:LAT - geo2:LAT).
 }

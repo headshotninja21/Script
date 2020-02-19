@@ -7,10 +7,11 @@ function orbitInfo
     set Capo to ship:apoapsis.//to make the math look nice
     set peri to ship:periapsis.//to make the math look nice
     set a1 to orbit:semimajoraxis.//to make the math look nice
-    set e to orbit:eccentricity.//to make the math look nice
+    set ecc to orbit:eccentricity.//to make the math look nice
     set theta to orbit:trueanomaly.//to make the math look nice
     
-    set rad to (Capo*(1-e^2))/(1*e*cos(theta)).//radius of the orbit
+    set rad to body:radius+ship:altitude.//radius of the orbit
+    set grav to constant:G*(body:mass*ship:mass/rad^2).
     set orbitTime to (2*constant:pi*sqrt((a1^3)/mu)).//orbital period found wuth math
     set orbitV to sqrt(mu*((2/r)-(1/a1))).// orbital velocity
     set orbitE to (orbitV^2/2)-(mu/rad).//orbital energy 

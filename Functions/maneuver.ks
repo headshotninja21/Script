@@ -9,7 +9,7 @@ function impulseDV
     
     if not (defined r1)
     {
-    set r1 to cAlt + body:radius.//start radius for orbit
+        set r1 to cAlt + body:radius.//start radius for orbit
     }
 
     set r2 to targetApo + body:radius.//target radius for orbit

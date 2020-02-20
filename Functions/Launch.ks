@@ -9,13 +9,13 @@ function launch
     lock steering to up.
 
     set i to 10.//countdown
-    set a to 2.//print location
+    set l to 2.//print location
 
     //Start Countdown
     until i = 0
     {
-        print "T - " + i at (0,a).
-        set a to a + 1.
+        print "T - " + i at (0,l).
+        set a to l + 1.
         set i to i - 1.
         if i = 3 
         {
@@ -67,7 +67,7 @@ function circularize
 
     set runmode to 1.
     set eta to ETA:apoapsis.
-    set targETA to 6.
+    //set targETA to 6.
 
     lock steering to prograde.
     

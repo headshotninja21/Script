@@ -12,7 +12,7 @@ function LandingData
     {
         set ImpactTime to Addons:TR:timetillimpact.
         set ImpactLoc to Addons:TR:impactpos.
-
+        
         for x in E 
         {
             set thrust to thrust + x:thrust.
@@ -20,6 +20,9 @@ function LandingData
         set twr to thrust/(ship:mass*shipData[6]).
         set acc to twr*shipData[6].
         set StopTime to ship:verticalspeed/acc.
+        set vacc to acc-shipData[6].
+        set AGL to alt:radar. 
+        set HoverslamAGL to Vessel:VERTICALSPEED^2/vacc.
     }
 }
 
@@ -31,7 +34,7 @@ function land
     {
         set impactDist to calcDistance(targ,ImpactLoc).
         set targY to geoDir(ImpactLoc,targ).
-        lock throttle to Apid(ImpactTime,StopTime,1,1,1).
+        lock throttle to Apid(AGL,HoverslamAGL,1,1,1).
         lock steering to heading(targY,0).
     }
 

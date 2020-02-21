@@ -22,7 +22,7 @@ function LandingData
         set StopTime to ship:verticalspeed/acc.
         set vacc to acc-shipData[6].
         set AGL to alt:radar. 
-        set HoverslamAGL to Vessel:VERTICALSPEED^2/vacc.
+        set HoverslamAGL to .5*(Vessel:VERTICALSPEED^2/vacc).
     }
 }
 
@@ -34,8 +34,13 @@ function land
     {
         set impactDist to calcDistance(targ,ImpactLoc).
         set targY to geoDir(ImpactLoc,targ).
-        lock throttle to Apid(AGL,HoverslamAGL,1,1,1).
-        lock steering to heading(targY,0).
+        //lock throttle to Apid(AGL,HoverslamAGL,1,1,1).
+        //lock steering to heading(targY,0).
+        if AGL = HoverslamAGL
+        {
+            lock steering to up.
+            lock throttle to 1.
+        }
     }
 
 }

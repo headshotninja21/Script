@@ -1,2 +1,2 @@
 core:part:getmodule("kOSProcessor"):doevent("Open Terminal").
-runpath("0:/old scripts/LaunchandLand.ks").
+runpath("0:Functions/ShipData.ks").

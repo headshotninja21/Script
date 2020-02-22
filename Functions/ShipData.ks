@@ -1,9 +1,32 @@
+clearScreen.
+until 1 = 0
+{   
+    
+    
+    set and to orbitInfo().
+    
+    print "apoapsis: " + and[0] at(0,1).
+    print "periapsis: " + and[1] at(0,2).
+    print "semimajoraxis: " + and[2] at(0,3).
+    print "orbitTime: " + and[3] at(0,4).
+    print "orbitV: " + and[4] at(0,5).
+    print "orbitE: " + and[5] at(0,6).
+    print "grav: " + and[6] at(0,7).
+    print "Tc: " + and[7] at(0,8).
+    print "press: " + and[8] at(0,9).
+    print "drag: " + and[9] at(0,10).
+
+    //set or to deltaV().
+
+    //print "DeltaV: " + or at (11,0).
+    
+}
 function orbitInfo
 {
     set output to list().//list for all outgoing vars (KOS can't return more than one var)
     
     set mu to body:mu.//to make the math look nice
-    set alt to ship:altitude.//to make the math look nice
+    set ASL to alt:radar.//to make the math look nice
     set Capo to ship:apoapsis.//to make the math look nice
     set peri to ship:periapsis.//to make the math look nice
     set a1 to orbit:semimajoraxis.//to make the math look nice
@@ -14,9 +37,9 @@ function orbitInfo
     set m2 to ship:mass.//to make the math look nice
 
     set Coeffd to .3.//coefficient of drag (cannot find with math) 
-    set Tc to 15.04-0.00649*alt.//Temp in C
+    set Tc to 15.04-(0.00679*ASL).//Temp in C
     set Tk to Tc + 273.1.//Temp in K
-    set press to 101.29(Tk/288.08)^5.256.//atmos Pressure
+    set press to 101.29*(Tk/288.08)^5.256.//atmos Pressure
     set rho to press/(.2869*tk).//atmos Density
     set u to velocity:surface:mag.//magnitude of the surface velocity vectors
     set q1 to 1/2*(rho*u^2).//dynamic pressure
@@ -24,11 +47,13 @@ function orbitInfo
     set drag to Coeffd*q1*a2.//force of drag
     
     set grav to constant:G*(m1*m2/rad^2).//force of gravity acting on the vessel
-    set orbitTime to (2*constant:pi*sqrt((a1^3)/mu)).//orbital period found wuth math
+    set orbitTime to (2*constant:pi*sqrt((a1^3)/mu)).//orbital period found with math
     set orbitV to sqrt(mu*((2/rad)-(1/a1))).// orbital velocity
     set orbitE to (orbitV^2/2)-(mu/rad).//orbital energy 
 
-    output:add(Capo,peri,orbit:semimajoraxis,orbitTime,orbitV,orbitE,grav,Tc,press,drag).//adds all out going vars to output list
+    output:add(Capo). output:add(peri). output:add(orbit:semimajoraxis). //adds all out going vars to output list
+    output:add(orbitTime/60). output:add(orbitV). output:add(orbitE). //adds all out going vars to output list
+    output:add(grav). output:add(Tc). output:add(press). output:add(drag). //adds all out going vars to output list
     return output.
 }
 

@@ -3,39 +3,39 @@ runpath("0:/Functions/ShipData.ks").
 
 function LandingData
 {
-    list engines in E.
-    set thrust to 0.
+    list engines in E.//list of all engines on ship
+    set thrust to 0.//sets the active trust to 0
     
-    set shipData to orbitInfo().
+    set shipData to orbitInfo().//runs the orbit info command
 
-    if Addons:TR:available
+    if Addons:TR:available//checks if the trajectorys mod is installed
     {
-        set ImpactTime to Addons:TR:timetillimpact.
-        set ImpactLoc to Addons:TR:impactpos.
+        set ImpactTime to Addons:TR:timetillimpact.//time to ground impact
+        set ImpactLoc to Addons:TR:impactpos.//location of ground impact
         
         for x in E 
         {
-            set thrust to thrust + x:thrust.
+            set thrust to thrust + x:thrust.//sets the current thurst of the ship
         } 
-        set twr to thrust/(ship:mass*shipData[6]).
-        set acc to twr*shipData[6].
-        set StopTime to ship:verticalspeed/acc.
-        set vacc to acc-shipData[6].
-        set AGL to alt:radar. 
-        set HoverslamAGL to .5*(Vessel:VERTICALSPEED^2/vacc).
+        set twr to thrust/(ship:mass*shipData[6]).//Sets the thrust to weight ratio
+        set acc to twr*shipData[6].//sets the acceleration of the ship
+        set StopTime to ship:verticalspeed/acc.//sets the time to bring the ship to 0 velcity at the current thrust
+        set vacc to acc-shipData[6].//vertical acceleration
+        set AGL to alt:radar. //Alt Ground high
+        set HoverslamAGL to .5*(Vessel:VERTICALSPEED^2/vacc).// alt to start burning at the current thusrt
     }
 }
 
 function land
 {
-    LandingData().
-    set targ to ImpactLoc.
-    until ship:status = "Landed" or ship:status = "Splashed"
+    LandingData().//calls the landing data
+    set targ to ImpactLoc.//sets the current impact location to the target 
+    until ship:status = "Landed" or ship:status = "Splashed"//checks if the ship is landed on ground/water
     {
-        set impactDist to calcDistance(targ,ImpactLoc).
-        set targY to geoDir(ImpactLoc,targ).
-        //lock throttle to Apid(AGL,HoverslamAGL,1,1,1).
-        //lock steering to heading(targY,0).
+        set impactDist to calcDistance(targ,ImpactLoc).//how far your impact location is from your target landing in meters
+        set targY to geoDir(ImpactLoc,targ).//sets the heading on a compass
+        //lock throttle to Apid(AGL,HoverslamAGL,1,1,1).//(PID control)the thorttle control to keep the current alt and the hoverslam alt the same
+        //lock steering to heading(targY,0).//sets the steering for the ship (Heading, pitch) 
         if AGL = HoverslamAGL
         {
             lock steering to up.
@@ -48,11 +48,11 @@ function calcDistance  //Approx in meters
 {
     parameter geo1.
     parameter geo2.
-    return (geo1:POSITION - geo2:POSITION):MAG.
+    return (geo1:POSITION - geo2:POSITION):MAG.//distace the two points are seperated
 }
 function geoDir 
 {
     parameter geo1.
     parameter geo2.
-    return ARCTAN2(geo1:LNG - geo2:LNG, geo1:LAT - geo2:LAT).
+    return ARCTAN2(geo1:LNG - geo2:LNG, geo1:LAT - geo2:LAT).//compass heading to target
 }

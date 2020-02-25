@@ -1,7 +1,7 @@
 clearScreen.
 until 1 = 0
 {   
-    
+    //runs orbit info and prints its data
     
     set and to orbitInfo().
     
@@ -15,6 +15,8 @@ until 1 = 0
     print "Tc: " + and[7] at(0,8).
     print "press: " + and[8] at(0,9).
     print "drag: " + and[9] at(0,10).
+
+    //runs deltaV and prints the ship DeltaV
 
     //set or to deltaV().
 

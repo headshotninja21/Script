@@ -35,8 +35,8 @@ function orbitInfo
     //set ecc to orbit:eccentricity.//to make the math look nice
     //set theta to orbit:trueanomaly.//to make the math look nice
     set rad to body:radius+ship:altitude.//to make the math look nice
-    set m1 to body:mass.//to make the math look nice
-    set m2 to ship:mass.//to make the math look nice
+    set m1 to body:mass*1000.//to make the math look nice
+    set m2 to ship:mass*1000.//to make the math look nice
 
     set Coeffd to .3.//coefficient of drag (cannot find with math) 
     set Tc to 15.04-(0.00679*AGL).//Temp in C
@@ -48,7 +48,8 @@ function orbitInfo
     set a2 to m1*.008.//stand in for surface area (kerbal cant do surface area properly)
     set drag to Coeffd*q1*a2.//force of drag
     
-    set grav to constant:G*(m1*m2/rad^2).//force of gravity acting on the vessel
+    set gravNu to constant:G*(m1*m2/rad^2).//force of gravity acting on the vessel in N
+    set grav to gravNu/(ship:mass*1000).//Gravity on m/s^2
     set orbitTime to (2*constant:pi*sqrt((a1^3)/mu)).//orbital period found with math
     set orbitV to sqrt(mu*((2/rad)-(1/a1))).// orbital velocity
     set orbitE to (orbitV^2/2)-(mu/rad).//orbital energy 

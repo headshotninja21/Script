@@ -28,7 +28,7 @@ function orbitInfo
     set output to list().//list for all outgoing vars (KOS can't return more than one var)
     
     set mu to body:mu.//to make the math look nice
-    set ASL to alt:radar.//to make the math look nice
+    set AGL to alt:radar*3.28084.//to make the math look nice
     set Capo to ship:apoapsis.//to make the math look nice
     set peri to ship:periapsis.//to make the math look nice
     set a1 to orbit:semimajoraxis.//to make the math look nice
@@ -39,7 +39,7 @@ function orbitInfo
     set m2 to ship:mass.//to make the math look nice
 
     set Coeffd to .3.//coefficient of drag (cannot find with math) 
-    set Tc to 15.04-(0.00679*ASL).//Temp in C
+    set Tc to 15.04-(0.00679*AGL).//Temp in C
     set Tk to Tc + 273.1.//Temp in K
     set press to 101.29*(Tk/288.08)^5.256.//atmos Pressure
     set rho to press/(.2869*tk).//atmos Density

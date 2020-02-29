@@ -5,25 +5,37 @@ until 1 = 0
     
     set and to orbitInfo().
     
+    set Tm to round(and[3],0).
+    if and[3]-Tm < 0
+    {
+        set TempTs to -(and[3]-Tm).
+        set ts to round(((1-TempTs)*60),1).
+        set Tm to tm - 1.
+    }
+    else
+    {
+        set Ts to round(((and[3]-tm)*60),1).
+    }
+
     print "apoapsis: " + round(and[0],3) at(0,1).
     print "periapsis: " + round(and[1],3) at(0,2).
     print "semimajoraxis: " + round(and[2],3) at(0,3).
-    print "orbitTime: " + round(and[3],3) at(0,4).
+    print "orbitTime: " + "Min: " + Tm + " " + "Sec: " + Ts at(0,4).
     print "orbitV: " + round(and[4],3)at(0,5).
     print "orbitE: " + round(and[5],3) at(0,6).
     print "grav: " + round(and[6],3) at(0,7).
-    print "Temp (K): " + round(and[7],3) at(0,8).
     print "press: " + round(and[8],3) at(0,9).
     print "dynamic Press: " + round(and[11],3) at(0,10).
     print "drag: " + round(and[9],3) at(0,11).
     print "Density: " + round(and[10],3) at(0,12).
+    print "Temp (K): " + round(and[7],3) at(0,13).
     
 
     //runs deltaV and prints the ship DeltaV
 
-    //set or to deltaV().
+    set or to deltaV().
 
-    //print "DeltaV: " + or at (11,0).
+    print "DeltaV: " + or at (0,8).
     
 }
 function orbitInfo
@@ -125,7 +137,15 @@ function deltaV
     }
 
     set stageDry to shipMass - resMass.//Dry mass for the empty stage and a full set of stages above it
-    set avgisp to tisp / ecount.
+    
+    if ecount = 0 
+    {
+        set avgisp to 1.
+    }
+    else
+    {
+        set avgisp to tisp / ecount.
+    }
 
     set Ve to avgisp * constant:g0.//Exaust Velocity
     set DV to Ve * (ln(shipMass)-ln(stageDry)).//DeltaV Math

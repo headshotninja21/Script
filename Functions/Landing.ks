@@ -1,6 +1,19 @@
 runpath("0:/old scripts/PIDLoops.ks").
 runpath("0:/Functions/ShipData.ks").
 
+set  i to 1.
+until i = 0
+{
+    set landD to LandingData().
+
+    print "TWR: " + landD[0] at(0,1).
+    print "ACC: " + landD[1] at(0,2).
+    print "Stop Time: " + landD[2] at(0,3).
+    print "VACC: " + landD[3] at(0,4).
+    print "AGL: " + landD[4] at(0,5).
+    print "HoverSlam AGL: " + landD[5] at(0,6).
+}
+
 function LandingData
 {
     list engines in E.//list of all engines on ship
@@ -10,6 +23,8 @@ function LandingData
 
     if Addons:TR:available//checks if the trajectorys mod is installed
     {
+        set landOut to list().
+
         set ImpactTime to Addons:TR:timetillimpact.//time to ground impact
         set ImpactLoc to Addons:TR:impactpos.//location of ground impact
         
@@ -23,6 +38,10 @@ function LandingData
         set vacc to acc-shipData[6].//vertical acceleration
         set AGL to alt:radar. //Alt Ground high
         set HoverslamAGL to .5*(Vessel:VERTICALSPEED^2/vacc).// alt to start burning at the current thusrt
+    
+        landOut:add(twr). landOut:add(acc). landOut:add(StopTime).
+        landOut:add(vacc). landOut:add(AGL). landOut:add(HoverslamAGL).
+        return landOut.
     }
 }
 

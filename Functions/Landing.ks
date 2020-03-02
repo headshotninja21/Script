@@ -6,12 +6,12 @@ until i = 0
 {
     set landD to LandingData().
 
-    print "TWR: " + landD[0] at(0,1).
-    print "ACC: " + landD[1] at(0,2).
-    print "Stop Time: " + landD[2] at(0,3).
-    print "VACC: " + landD[3] at(0,4).
-    print "AGL: " + landD[4] at(0,5).
-    print "HoverSlam AGL: " + landD[5] at(0,6).
+    print "TWR: " + round(landD[0],3) at(0,1).
+    print "ACC: " + round(landD[1],3) at(0,2).
+    print "Stop Time: " + round(landD[2],3) at(0,3).
+    print "VACC: " + round(landD[3],3) at(0,4).
+    print "AGL: " + round(landD[4],3) at(0,5).
+    print "HoverSlam AGL: " + round(landD[5],3) at(0,6).
 }
 
 function LandingData
@@ -30,7 +30,10 @@ function LandingData
         
         for x in E 
         {
-            set thrust to thrust + x:thrust.//sets the current thurst of the ship
+            if x:ignition
+            {
+                set thrust to thrust + x:thrust.//sets the current thurst of the ship
+            }
         } 
         set twr to thrust/(ship:mass*shipData[6]).//Sets the thrust to weight ratio
         set acc to twr*shipData[6].//sets the acceleration of the ship

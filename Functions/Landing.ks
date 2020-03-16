@@ -23,8 +23,8 @@ function LandingData
     
     set shipData to orbitInfo().//runs the orbit info command
 
-    //if Addons:TR:available//checks if the trajectorys mod is installed
-    //{
+    if Addons:TR:available//checks if the trajectorys mod is installed
+    {
         set landOut to list().
 
         //set ImpactTime to Addons:TR:timetillimpact.//time to ground impact
@@ -41,10 +41,10 @@ function LandingData
         set twr to thrust/(ship:mass*shipData[6]).//Sets the thrust to weight ratio
         set maxtwr to ship:availablethrust/(ship:mass*shipData[6]).
         set acc to maxtwr*shipData[6].//sets the acceleration of the ship
-        set StopTime to ship:verticalspeed/acc.//sets the time to bring the ship to 0 velcity at the current thrust
+        set StopTime to -1*(ship:verticalspeed/acc).//sets the time to bring the ship to 0 velcity at the current thrust
         set vacc to acc-shipData[6].//vertical acceleration
         set AGL to alt:radar. //Alt Ground high
-        set HoverslamAGL to .5*(ship:VERTICALSPEED^2/vacc).// alt to start burning at the current thusrt
+        set HoverslamAGL to .44*(ship:VERTICALSPEED^2/vacc).// alt to start burning at the current thusrt
     
         landOut:add(twr). landOut:add(acc). landOut:add(StopTime).
         landOut:add(vacc). landOut:add(AGL). landOut:add(HoverslamAGL).
@@ -57,7 +57,7 @@ function LandingData
         print "HoverSlam AGL: " + round(HoverslamAGL,3) at(0,6).
         
         return landOut.
-    //}
+    }
 }
 
 function land
@@ -71,26 +71,44 @@ function land
             lock throttle to 0.
             break.
         }
+        if HoverslamAGL < 1 
+        {
+            lock throttle to 0.
+            break.
+        }
         LandingData().
         print "fall" at (0,20).
         //set impactDist to calcDistance(targ,ImpactLoc).//how far your impact location is from your target landing in meters
         //set targY to geoDir(ImpactLoc,targ).//sets the heading on a compass
         //lock throttle to Apid(AGL,HoverslamAGL,1,1,1).//(PID control)the thorttle control to keep the current alt and the hoverslam alt the same
-        //lock steering to heading(targY,0).//sets the steering for the ship (Heading, pitch) 
+        //lock steering to heading(targY,90).//sets the steering for the ship (Heading, pitch) 
         if AGL < HoverslamAGL
         {
             print "land" at (0,20).
             if ship:status = "Landed"
             {
-                lock throttle to 0.
+                lock throttle to Apid(HoverslamAGL,AGL,.007,.001,.05).
                 break.
+            }
+            if ship:altitude < 500
+            {
+                legs on.
             }
             until ship:status = "Landed"
             {
                 LandingData().
                 lock steering to up.
-                lock throttle to 1.
-                if ship:verticalSpeed > 0
+                lock throttle to Apid(HoverslamAGL,AGL,.007,.002,.0005).
+                if ship:altitude < 500
+                {
+                    legs on.
+                }
+                if HoverslamAGL < 1 
+                {
+                    lock throttle to 0.
+                    break.
+                }
+                if -ship:verticalSpeed < 1
                 {
                     lock throttle to 0.
                     break.

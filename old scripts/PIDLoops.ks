@@ -29,7 +29,7 @@ function Apid
 
     set Aoutput to AP * AkP + AI * AkI + AD * AkD.
 
-    print "AOut " + "P " +  AP + " I " +  AI + " D " +  AD + " Output " + Aoutput at (0,16).
+    print "AOut " + "P " +  round(AP,3) + " I " +  round(AI,3) + " D " +  round(AD,3) + " Output " + round(Aoutput,3) at (0,16).
 
     return Aoutput.
 }

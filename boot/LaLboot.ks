@@ -11,15 +11,8 @@ until 1 = 0
         {
             brakes on.
             sas off.
-            lock throttle to 0.
-            lock steering to up.
-            if ship:verticalspeed < 0
-            {    
-                until 1=0
-                {
-                    land().
-                }
-            }
+            landThrottle().
+            LandingControl().
         }
     }
 }

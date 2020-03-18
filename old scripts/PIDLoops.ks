@@ -65,7 +65,7 @@ function Bpid
 
     set Boutput to BP * BkP + BI * BkI + BD * BkD.
 
-    print "BOut " + "P " +  BP + " I " +  BI + " D " +  BD + " Output " + Boutput at (0,17).
+    print "BOut " + "P " +  round(BP,3) + " I " +  round(BI,3) + " D " +  round(BD,3) + " Output " + round(Boutput,3) at (0,17).
     return Boutput.
 }
 
@@ -100,7 +100,7 @@ function Cpid
 
     set Coutput to CP * CkP + CI * CkI + CD * CkD.
 
-    print "COut " + "P " +  CP + " I " +  CI + " D " +  CD + " Output " + Coutput at (0,18).
+    print "COut " + "P " +  round(CP,3) + " I " +  round(CI,3) + " D " +  round(CD,3) + " Output " + round(Coutput,3) at (0,18).
 
     return Coutput.
 }

@@ -43,7 +43,7 @@ function LandingData
         set acc to maxtwr*shipData[6].//sets the acceleration of the ship
         set StopTime to -1*(ship:verticalspeed/acc).//sets the time to bring the ship to 0 velcity at the current thrust
         set vacc to acc-shipData[6].//vertical acceleration
-        set AGL to alt:radar-50. //Alt Ground high
+        set AGL to alt:radar. //Alt Ground high
         set HoverslamAGL to .44*(ship:VERTICALSPEED^2/vacc).// alt to start burning at the current thusrt
     
         landOut:add(twr). landOut:add(acc). landOut:add(StopTime).
@@ -63,28 +63,19 @@ function LandingData
 function landThrottle
 {
     LandingData().
-
-    lock throttle to Apid(HoverslamAGL,AGL,.005,.004,.0005).
-    if totalAe < -100
+    parameter impactDis.
+    
+    set g to body:mu / (altitude + body:radius)^2.
+    set gravVertA to (ship:availablethrust/ship:mass)-g.
+    set totalHStime to (ship:verticalspeed^2/(gravVertA)).
+    set burn to (totalHStime / alt:radar)+.15.
+    
+    if ship:altitude <= totalHStime
     {
-        set totalAe to 0.
+        lock throttle to burn.
     }
-    if ship:altitude < 500
-    {
-        legs on.
-    }
-    if HoverslamAGL < 1 
-    {
-        lock throttle to 0.
-    }
-    if -ship:verticalSpeed < 1
-    {
-        lock throttle to 0.
-    }
-    if ship:status = "Landed"
-    {
-        lock throttle to 0.
-    }
+    print totalHStime at(0,10).
+    print burn at(0,11).
 }
 
 
@@ -105,14 +96,28 @@ function geoDir
 
 function LandingControl
 {
-    if not (defined landTarget)
-    {
-        set landTarget to addons:tr:impactpos.
-    }
-    
-    set Impact to ADDONS:TR:IMPACTPOS.
+    parameter impacttarg.
+    set Landpos to ADDONS:TR:SETTARGET(impacttarg).
 
-    set x to Bpid(landTarget:LNG,Impact:LNG,10,.1,.01).
-    set y to Cpid(landTarget:LAT,Impact:LAT,10,.1,.01).
-    lock steering to up + R(x,y,90).
+    if throttle > .1
+    {
+        lock steering to ship:SRFRETROGRADE.
+    }
+    else
+    {
+        if Addons:TR:HASIMPACT
+        {
+            set x to Cpid(addons:tr:impactpos:lat*10,impacttarg:lat*10,22,1.5,.7).
+            set y to Dpid(addons:tr:impactpos:lng*10,impacttarg:lng*10,22,1.5,.7).
+            if ship:GEOPOSITION:LAT>impacttarg:lat
+            {
+                lock steering to up + R(x,y,90).
+            }
+            else{lock steering to up + R(-x,-y,90).}
+        }
+    }
+    if ship:altitude < 200
+    {
+        legs on.
+    }
 }

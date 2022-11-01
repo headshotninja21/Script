@@ -20,7 +20,7 @@ function Apid
     if lastaTime > 0
     {
         set AI to totalAe + ((AP + lastAe)/2 * (now - lastATime)).
-        set AD to ((AP - lastAe)/((now + .000001) - lastATime)).
+        set AD to ((AP - lastAe)/((now + .00001) - lastATime)).
     }
 
     set lastAe to AP.
@@ -56,7 +56,7 @@ function Bpid
     if lastBTime > 0
     {
         set BI to totalBe + ((BP + lastBe)/2 * (now - lastBTime)).
-        set BD to ((BP - lastBe)/((now + .000001)- lastBTime)).
+        set BD to ((BP - lastBe)/((now + .00001)- lastBTime)).
     }
 
     set lastBe to BP.
@@ -91,7 +91,7 @@ function Cpid
     if lastCTime > 0
     {
         set CI to totalCe + ((CP + lastCe)/2 * (now - lastCTime)).
-        set CD to ((CP - lastCe)/((now + .000001) - lastCTime)).
+        set CD to ((CP - lastCe)/((now + .00001) - lastCTime)).
     }
 
     set lastCe to CP.
@@ -127,7 +127,7 @@ function Dpid
     if lastDTime > 0
     {
         set DI to totalDe + ((DP + lastDe)/2 * (now - lastDTime)).
-        set DD to ((DP - lastDe)/((now + .000001) - lastDTime)).
+        set DD to ((DP - lastDe)/((now + .00001) - lastDTime)).
     }
 
     set lastDe to DP.
@@ -136,7 +136,7 @@ function Dpid
 
     set Doutput to DP * DkP + DI * DkI + DD * DkD.
 
-    print "DOut " + "P " +  DP + " I " +  DI + " D " +  DD + " Output " + Doutput at (0,19).
+    print "DOut " + "P " +  round(DP,3) + " I " +  round(DI,3) + " D " +  round(DD,3) + " Output " + round(Doutput,3) at (0,19).
 
     return Doutput.
 }

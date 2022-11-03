@@ -108,9 +108,11 @@ function LandingControl
     {
         if throttle > .1
         {
-            set x to Cpid(addons:tr:impactpos:lat*10,impacttarg:lat*10,22,1.5,.7).
-            set y to Dpid(addons:tr:impactpos:lng*10,impacttarg:lng*10,22,1.5,.7).
-            if ship:GEOPOSITION:LAT>impacttarg:lat
+            lock steering to ship:SRFRETROGRADE.
+        }
+        else
+        {
+            if Addons:TR:HASIMPACT
             {
                 set x to Cpid(addons:tr:impactpos:lat*10,impacttarg:lat*10,22,1.5,.7).
                 set y to Dpid(addons:tr:impactpos:lng*10,impacttarg:lng*10,22,1.5,.7).

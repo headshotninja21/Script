@@ -70,7 +70,8 @@ function landThrottle
     set totalHStime to (ship:verticalspeed^2/(gravVertA)).
     set burn to (totalHStime / alt:radar)+.15.
     
-    if ship:altitude <= totalHStime
+    //if ship:altitude <= totalHStime and StopTime >= ADDONS:TR:TIMETILLIMPACT
+    if StopTime >= ADDONS:TR:TIMETILLIMPACT
     {
         lock throttle to burn.
     }
@@ -99,25 +100,30 @@ function LandingControl
     parameter impacttarg.
     set Landpos to ADDONS:TR:SETTARGET(impacttarg).
 
-    if throttle > .1
+    if ship:altitude > 29000
     {
         lock steering to ship:SRFRETROGRADE.
     }
     else
     {
-        if Addons:TR:HASIMPACT
+        if throttle > .1
         {
             set x to Cpid(addons:tr:impactpos:lat*10,impacttarg:lat*10,22,1.5,.7).
             set y to Dpid(addons:tr:impactpos:lng*10,impacttarg:lng*10,22,1.5,.7).
             if ship:GEOPOSITION:LAT>impacttarg:lat
             {
-                lock steering to up + R(x,y,90).
+                set x to Cpid(addons:tr:impactpos:lat*10,impacttarg:lat*10,22,1.5,.7).
+                set y to Dpid(addons:tr:impactpos:lng*10,impacttarg:lng*10,22,1.5,.7).
+                if ship:GEOPOSITION:LAT>impacttarg:lat
+                {
+                    lock steering to up + R(-x,-y,0).
+                }
+                else{lock steering to up + R(x,y,0).}
             }
-            else{lock steering to up + R(-x,-y,90).}
         }
     }
-    if ship:altitude < 200
-    {
-        legs on.
-    }
+        if ship:altitude < 200
+        {
+            legs on.
+        }
 }
